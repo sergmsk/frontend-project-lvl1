@@ -1,18 +1,21 @@
-# This is a basic workflow to help you get started with Actions
+name: linting
 
-name: CI
-
-on:
-  push:
-    branches:
-      - '**'
-    tags:
-      - '**'
+on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
 
-      - name: eslint project check
-        run: make lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: npm install
+      # Install project
+      run: |
+        make install
+        # Add environment variables
+      env:
+        CI: true
+    - name: Linter check
+      run: make lint
